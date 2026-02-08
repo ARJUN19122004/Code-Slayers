@@ -1,5 +1,6 @@
 import { useState } from "react"
 import axios from "axios"
+import { Link } from "react-router-dom"
 
 const options = [
     { label: "I enjoy coding", value: "coding", icon: "💻" },
@@ -55,15 +56,25 @@ export default function Quiz() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 py-12 px-4">
-            <div className="max-w-3xl mx-auto">
+        <div className="min-h-screen bg-gray-50">
 
-                {/* Header */}
-                <div className="text-center mb-10">
-                    <h1 className="text-4xl font-bold text-white mb-3">
+            {/* Header */}
+            <header className="bg-white border-b border-gray-200 py-4 px-6">
+                <div className="max-w-3xl mx-auto">
+                    <Link to="/" className="inline-flex items-center text-gray-500 hover:text-gray-900 text-sm">
+                        ← Back to Dashboard
+                    </Link>
+                </div>
+            </header>
+
+            <main className="max-w-3xl mx-auto px-6 py-8">
+
+                {/* Title */}
+                <div className="text-center mb-8">
+                    <h1 className="text-3xl font-bold text-gray-900 mb-2">
                         🎯 Career Interest Quiz
                     </h1>
-                    <p className="text-purple-200">
+                    <p className="text-gray-600">
                         Select the interests that resonate with you to discover your ideal tech career path
                     </p>
                 </div>
@@ -71,18 +82,18 @@ export default function Quiz() {
                 {!results ? (
                     <>
                         {/* Interest Cards */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
                             {options.map(opt => (
                                 <button
                                     key={opt.value}
                                     onClick={() => toggle(opt.value)}
-                                    className={`p-5 rounded-xl border-2 transition-all duration-300 transform hover:scale-105 ${selected.includes(opt.value)
-                                            ? "bg-purple-600/40 border-purple-400 shadow-lg shadow-purple-500/30"
-                                            : "bg-white/10 border-white/20 hover:bg-white/20 hover:border-white/40"
+                                    className={`p-4 rounded-xl border-2 transition-all ${selected.includes(opt.value)
+                                            ? "bg-purple-50 border-purple-400"
+                                            : "bg-white border-gray-200 hover:border-gray-300"
                                         }`}
                                 >
-                                    <div className="text-3xl mb-2">{opt.icon}</div>
-                                    <div className="text-white font-medium text-sm">
+                                    <div className="text-2xl mb-2">{opt.icon}</div>
+                                    <div className="text-gray-900 font-medium text-sm">
                                         {opt.label}
                                     </div>
                                 </button>
@@ -90,15 +101,15 @@ export default function Quiz() {
                         </div>
 
                         {/* Selection Counter */}
-                        <div className="text-center mb-6">
-                            <span className={`text-sm ${selected.length >= 2 ? 'text-green-400' : 'text-yellow-400'}`}>
+                        <div className="text-center mb-4">
+                            <span className={`text-sm ${selected.length >= 2 ? 'text-green-600' : 'text-yellow-600'}`}>
                                 {selected.length} selected {selected.length < 2 && "(minimum 2)"}
                             </span>
                         </div>
 
                         {/* Error Message */}
                         {error && (
-                            <div className="bg-red-500/20 border border-red-500/50 text-red-300 px-4 py-3 rounded-lg mb-6 text-center">
+                            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4 text-center text-sm">
                                 {error}
                             </div>
                         )}
@@ -108,30 +119,20 @@ export default function Quiz() {
                             <button
                                 onClick={handleSubmit}
                                 disabled={loading || selected.length < 2}
-                                className={`px-8 py-3 rounded-full font-semibold text-white transition-all duration-300 ${loading || selected.length < 2
-                                        ? "bg-gray-600 cursor-not-allowed opacity-50"
-                                        : "bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 shadow-lg hover:shadow-purple-500/50"
+                                className={`px-8 py-3 rounded-lg font-medium transition-all ${loading || selected.length < 2
+                                        ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                                        : "bg-blue-600 text-white hover:bg-blue-700"
                                     }`}
                             >
-                                {loading ? (
-                                    <span className="flex items-center gap-2">
-                                        <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                                        </svg>
-                                        Analyzing...
-                                    </span>
-                                ) : (
-                                    "Get My Career Match 🚀"
-                                )}
+                                {loading ? "Analyzing..." : "Get My Career Match 🚀"}
                             </button>
                         </div>
                     </>
                 ) : (
                     <>
                         {/* Results Section */}
-                        <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20">
-                            <h2 className="text-2xl font-bold text-white mb-6 text-center">
+                        <div className="bg-white rounded-xl border border-gray-200 p-6">
+                            <h2 className="text-xl font-bold text-gray-900 mb-6 text-center">
                                 📊 Your Career Matches
                             </h2>
 
@@ -139,16 +140,16 @@ export default function Quiz() {
                                 {results.map((career, idx) => (
                                     <div
                                         key={career.domain}
-                                        className={`p-5 rounded-xl transition-all ${idx === 0
-                                                ? "bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-500/30"
-                                                : "bg-white/5 border border-white/10"
+                                        className={`p-5 rounded-xl border-2 ${idx === 0
+                                                ? "bg-yellow-50 border-yellow-300"
+                                                : "bg-gray-50 border-gray-200"
                                             }`}
                                     >
                                         <div className="flex items-start gap-4">
-                                            <div className="text-4xl">{career.icon}</div>
+                                            <div className="text-3xl">{career.icon}</div>
                                             <div className="flex-1">
                                                 <div className="flex items-center gap-3 mb-2">
-                                                    <h3 className="text-lg font-semibold text-white">
+                                                    <h3 className="text-lg font-semibold text-gray-900">
                                                         {career.title}
                                                     </h3>
                                                     {idx === 0 && (
@@ -159,17 +160,15 @@ export default function Quiz() {
                                                 </div>
 
                                                 {/* Progress Bar */}
-                                                <div className="w-full bg-white/20 rounded-full h-2 mb-3">
+                                                <div className="w-full bg-gray-200 rounded-full h-2 mb-3">
                                                     <div
-                                                        className={`h-2 rounded-full transition-all duration-500 ${idx === 0
-                                                                ? "bg-gradient-to-r from-yellow-400 to-orange-500"
-                                                                : "bg-purple-500"
+                                                        className={`h-2 rounded-full transition-all duration-500 ${idx === 0 ? "bg-yellow-500" : "bg-blue-500"
                                                             }`}
                                                         style={{ width: `${career.percentage}%` }}
                                                     />
                                                 </div>
 
-                                                <p className="text-purple-200 text-sm mb-3">
+                                                <p className="text-gray-600 text-sm mb-3">
                                                     {career.description}
                                                 </p>
 
@@ -178,7 +177,7 @@ export default function Quiz() {
                                                     {career.resources.map(resource => (
                                                         <span
                                                             key={resource}
-                                                            className="bg-white/10 text-purple-200 text-xs px-3 py-1 rounded-full"
+                                                            className="bg-gray-100 text-gray-700 text-xs px-3 py-1 rounded-full"
                                                         >
                                                             📚 {resource}
                                                         </span>
@@ -186,7 +185,7 @@ export default function Quiz() {
                                                 </div>
                                             </div>
 
-                                            <div className="text-2xl font-bold text-white">
+                                            <div className="text-2xl font-bold text-gray-900">
                                                 {career.percentage}%
                                             </div>
                                         </div>
@@ -195,10 +194,10 @@ export default function Quiz() {
                             </div>
 
                             {/* Reset Button */}
-                            <div className="text-center mt-8">
+                            <div className="text-center mt-6">
                                 <button
                                     onClick={resetQuiz}
-                                    className="px-6 py-2 rounded-full border border-white/30 text-white hover:bg-white/10 transition-all"
+                                    className="px-6 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 transition-all"
                                 >
                                     ← Take Quiz Again
                                 </button>
@@ -206,7 +205,7 @@ export default function Quiz() {
                         </div>
                     </>
                 )}
-            </div>
+            </main>
         </div>
     )
 }
