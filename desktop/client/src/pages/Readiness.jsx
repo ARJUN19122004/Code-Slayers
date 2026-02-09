@@ -1,6 +1,6 @@
 import { useState } from "react"
 import axios from "axios"
-import { Link } from "react-router-dom"
+import Navbar from "../components/Navbar"
 
 export default function Readiness() {
     const [resumeScore, setResumeScore] = useState(70)
@@ -46,22 +46,14 @@ export default function Readiness() {
 
     return (
         <div className="min-h-screen bg-gray-50">
-
-            {/* Header */}
-            <header className="bg-white border-b border-gray-200 py-4 px-6">
-                <div className="max-w-2xl mx-auto">
-                    <Link to="/" className="inline-flex items-center text-gray-500 hover:text-gray-900 text-sm">
-                        ← Back to Dashboard
-                    </Link>
-                </div>
-            </header>
+            <Navbar />
 
             <main className="max-w-2xl mx-auto px-6 py-8">
 
                 {/* Title */}
                 <div className="text-center mb-8">
                     <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                        🧠 Readiness Check
+                        Readiness Check
                     </h1>
                     <p className="text-gray-600">
                         Calculate your interview readiness score
@@ -76,7 +68,7 @@ export default function Readiness() {
                         {/* Resume Score */}
                         <div>
                             <div className="flex justify-between text-gray-700 mb-2">
-                                <label className="font-medium">📄 Resume ATS Score</label>
+                                <label className="font-medium">Resume ATS Score</label>
                                 <span className="font-bold">{resumeScore}</span>
                             </div>
                             <input
@@ -93,7 +85,7 @@ export default function Readiness() {
                         {/* Skill Score */}
                         <div>
                             <div className="flex justify-between text-gray-700 mb-2">
-                                <label className="font-medium">🎯 Skill Test Score</label>
+                                <label className="font-medium">Skill Test Score</label>
                                 <span className="font-bold">{skillScore}</span>
                             </div>
                             <input
@@ -110,7 +102,7 @@ export default function Readiness() {
                         {/* Projects */}
                         <div>
                             <div className="flex justify-between text-gray-700 mb-2">
-                                <label className="font-medium">💼 Number of Projects</label>
+                                <label className="font-medium">Number of Projects</label>
                                 <span className="font-bold">{projects}</span>
                             </div>
                             <input
@@ -130,11 +122,11 @@ export default function Readiness() {
                         onClick={calculateReadiness}
                         disabled={loading}
                         className={`w-full mt-6 py-3 rounded-lg font-medium transition-all ${loading
-                                ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-                                : "bg-blue-600 text-white hover:bg-blue-700"
+                            ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                            : "bg-blue-600 text-white hover:bg-blue-700"
                             }`}
                     >
-                        {loading ? "Calculating..." : "Calculate Readiness 🚀"}
+                        {loading ? "Calculating..." : "Calculate Readiness"}
                     </button>
                 </div>
 
@@ -154,7 +146,7 @@ export default function Readiness() {
 
                         {/* Breakdown */}
                         <div className="bg-white rounded-xl border border-gray-200 p-6">
-                            <h3 className="text-lg font-semibold text-gray-900 mb-4">📊 Score Breakdown</h3>
+                            <h3 className="text-lg font-semibold text-gray-900 mb-4">Score Breakdown</h3>
                             <div className="grid grid-cols-3 gap-4 text-center">
                                 <div className="bg-gray-50 rounded-lg p-4">
                                     <div className="text-2xl font-bold text-blue-600">{result.breakdown.resumeScore}</div>

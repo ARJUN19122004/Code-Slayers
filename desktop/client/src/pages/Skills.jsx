@@ -1,13 +1,13 @@
 import { useState } from "react"
 import axios from "axios"
-import { Link } from "react-router-dom"
+import Navbar from "../components/Navbar"
 
 const domains = [
-    { value: "web", label: "Web Development", icon: "🌐" },
-    { value: "data", label: "Data Science", icon: "📊" },
-    { value: "ux", label: "UX Design", icon: "🎨" },
-    { value: "cloud", label: "Cloud/DevOps", icon: "☁️" },
-    { value: "cybersecurity", label: "Cyber Security", icon: "🔒" }
+    { value: "web", label: "Web Development" },
+    { value: "data", label: "Data Science" },
+    { value: "ux", label: "UX Design" },
+    { value: "cloud", label: "Cloud/DevOps" },
+    { value: "cybersecurity", label: "Cyber Security" }
 ]
 
 export default function Skills() {
@@ -34,21 +34,12 @@ export default function Skills() {
 
     return (
         <div className="min-h-screen bg-gray-50">
-
-            {/* Header */}
-            <header className="bg-white border-b border-gray-200 py-4 px-6">
-                <div className="max-w-5xl mx-auto">
-                    <Link to="/" className="inline-flex items-center text-gray-500 hover:text-gray-900 text-sm">
-                        ← Back to Dashboard
-                    </Link>
-                </div>
-            </header>
+            <Navbar />
 
             <main className="max-w-5xl mx-auto px-6 py-8">
 
                 {/* Hero Section */}
                 <div className="text-center mb-8">
-                    <div className="text-5xl mb-4">⚡</div>
                     <h1 className="text-4xl font-bold text-gray-900 mb-3">
                         Skill Priority Planner
                     </h1>
@@ -70,7 +61,7 @@ export default function Skills() {
                                 className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 bg-gray-50"
                             >
                                 {domains.map(d => (
-                                    <option key={d.value} value={d.value}>{d.icon} {d.label}</option>
+                                    <option key={d.value} value={d.value}>{d.label}</option>
                                 ))}
                             </select>
                         </div>
@@ -78,8 +69,8 @@ export default function Skills() {
                             onClick={fetchSkills}
                             disabled={loading}
                             className={`px-8 py-3 rounded-xl font-semibold transition-all shadow-sm ${loading
-                                    ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-                                    : "bg-blue-600 text-white hover:bg-blue-700 hover:shadow-md"
+                                ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                                : "bg-blue-600 text-white hover:bg-blue-700 hover:shadow-md"
                                 }`}
                         >
                             {loading ? (
@@ -91,7 +82,7 @@ export default function Skills() {
                                     Analyzing...
                                 </span>
                             ) : (
-                                "🚀 Generate Priority Skills"
+                                "Generate Priority Skills"
                             )}
                         </button>
                     </div>
@@ -103,7 +94,6 @@ export default function Skills() {
 
                         {/* Domain Header */}
                         <div className="flex items-center gap-3 mb-2">
-                            <span className="text-3xl">{selectedDomain?.icon}</span>
                             <div>
                                 <h2 className="text-xl font-bold text-gray-900">{selectedDomain?.label}</h2>
                                 <p className="text-gray-500 text-sm">{skills.length} skills ranked by priority</p>
@@ -114,7 +104,6 @@ export default function Skills() {
                         {highPriority.length > 0 && (
                             <div>
                                 <div className="flex items-center gap-2 mb-4">
-                                    <span className="text-2xl">🔥</span>
                                     <h3 className="text-lg font-bold text-gray-900">High Priority</h3>
                                     <span className="bg-red-500 text-white text-xs px-2 py-1 rounded-full font-bold">
                                         LEARN FIRST
@@ -147,7 +136,6 @@ export default function Skills() {
                         {mediumPriority.length > 0 && (
                             <div>
                                 <div className="flex items-center gap-2 mb-4">
-                                    <span className="text-2xl">⚡</span>
                                     <h3 className="text-lg font-bold text-gray-900">Medium Priority</h3>
                                     <span className="bg-yellow-500 text-white text-xs px-2 py-1 rounded-full font-bold">
                                         LEARN NEXT
@@ -180,7 +168,6 @@ export default function Skills() {
                         {lowPriority.length > 0 && (
                             <div>
                                 <div className="flex items-center gap-2 mb-4">
-                                    <span className="text-2xl">🧩</span>
                                     <h3 className="text-lg font-bold text-gray-900">Low Priority</h3>
                                     <span className="bg-gray-500 text-white text-xs px-2 py-1 rounded-full font-bold">
                                         LEARN LATER
@@ -211,7 +198,7 @@ export default function Skills() {
 
                         {/* Pro Tips */}
                         <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6 mt-8">
-                            <h3 className="font-bold text-blue-900 mb-2">💡 Pro Tips</h3>
+                            <h3 className="font-bold text-blue-900 mb-2">Pro Tips</h3>
                             <ul className="text-blue-800 text-sm space-y-1">
                                 <li>• Focus on High Priority skills for your first 3 months</li>
                                 <li>• Build projects using these skills to strengthen your portfolio</li>

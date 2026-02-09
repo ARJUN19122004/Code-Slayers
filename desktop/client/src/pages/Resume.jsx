@@ -1,6 +1,6 @@
 import { useState } from "react"
 import axios from "axios"
-import { Link } from "react-router-dom"
+import Navbar from "../components/Navbar"
 
 export default function Resume() {
     const [file, setFile] = useState(null)
@@ -27,7 +27,8 @@ export default function Resume() {
             )
             setResult(res.data)
         } catch (err) {
-            setError("Error analyzing resume. Please try again.")
+            console.error("Resume analysis error:", err)
+            setError(err.response?.data?.message || err.response?.data?.error || "Error analyzing resume. Please try again.")
         } finally {
             setLoading(false)
         }
@@ -53,22 +54,14 @@ export default function Resume() {
 
     return (
         <div className="min-h-screen bg-gray-50">
-
-            {/* Header */}
-            <header className="bg-white border-b border-gray-200 py-4 px-6">
-                <div className="max-w-3xl mx-auto">
-                    <Link to="/" className="inline-flex items-center text-gray-500 hover:text-gray-900 text-sm">
-                        ← Back to Dashboard
-                    </Link>
-                </div>
-            </header>
+            <Navbar />
 
             <main className="max-w-3xl mx-auto px-6 py-8">
 
                 {/* Title */}
                 <div className="text-center mb-8">
                     <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                        📄 Resume ATS Analyzer
+                        Resume ATS Analyzer
                     </h1>
                     <p className="text-gray-600">
                         Upload your resume and get AI-powered feedback
@@ -80,7 +73,6 @@ export default function Resume() {
 
                         {/* Upload Area */}
                         <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-blue-400 transition-colors">
-                            <div className="text-5xl mb-4">📤</div>
                             <p className="text-gray-700 mb-4 font-medium">
                                 {file ? file.name : "Drop your resume here or click to browse"}
                             </p>
@@ -114,11 +106,11 @@ export default function Resume() {
                             onClick={handleUpload}
                             disabled={loading || !file}
                             className={`w-full mt-6 py-3 rounded-lg font-medium transition-all ${loading || !file
-                                    ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-                                    : "bg-blue-600 text-white hover:bg-blue-700"
+                                ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                                : "bg-blue-600 text-white hover:bg-blue-700"
                                 }`}
                         >
-                            {loading ? "Analyzing..." : "🔍 Analyze Resume"}
+                            {loading ? "Analyzing..." : "Analyze Resume"}
                         </button>
                     </div>
                 ) : (
@@ -136,7 +128,7 @@ export default function Resume() {
                         {result.found && result.found.length > 0 && (
                             <div className="bg-white rounded-xl border border-gray-200 p-6">
                                 <h3 className="text-lg font-semibold text-green-700 mb-3">
-                                    ✅ Keywords Found ({result.found.length})
+                                    Keywords Found ({result.found.length})
                                 </h3>
                                 <div className="flex flex-wrap gap-2">
                                     {result.found.map((k, i) => (
@@ -152,7 +144,7 @@ export default function Resume() {
                         {result.missing && result.missing.length > 0 && (
                             <div className="bg-white rounded-xl border border-gray-200 p-6">
                                 <h3 className="text-lg font-semibold text-red-700 mb-3">
-                                    ❌ Missing Keywords ({result.missing.length})
+                                    Missing Keywords ({result.missing.length})
                                 </h3>
                                 <div className="flex flex-wrap gap-2">
                                     {result.missing.map((k, i) => (
@@ -168,7 +160,7 @@ export default function Resume() {
                         {result.suggestions && result.suggestions.length > 0 && (
                             <div className="bg-white rounded-xl border border-gray-200 p-6">
                                 <h3 className="text-lg font-semibold text-yellow-700 mb-3">
-                                    💡 Suggestions
+                                    Suggestions
                                 </h3>
                                 <ul className="space-y-2">
                                     {result.suggestions.map((s, i) => (
@@ -186,7 +178,7 @@ export default function Resume() {
                             onClick={resetAnalysis}
                             className="w-full py-3 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors"
                         >
-                            ← Analyze Another Resume
+                            Analyze Another Resume
                         </button>
                     </div>
                 )}

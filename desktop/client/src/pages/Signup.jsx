@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { signup } from '../services/authService';
 
 const Signup = () => {
@@ -35,45 +35,70 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900 px-4">
-      <div className="w-full max-w-md bg-gray-800 rounded-2xl shadow-xl p-8">
-        <h2 className="text-3xl font-bold text-white text-center mb-8">Create Account</h2>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-purple-50 to-pink-100 px-4 py-8">
 
+      {/* Logo */}
+      <div className="absolute top-8 left-1/2 -translate-x-1/2">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+          </div>
+          <span className="text-xl font-bold text-gray-700">Student 360</span>
+        </div>
+      </div>
+
+      {/* Card */}
+      <div className="w-full max-w-md bg-white rounded-3xl shadow-xl p-8 mt-16">
+
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">Create Account</h1>
+          <p className="text-gray-500 text-sm">Start your career journey with us today.</p>
+        </div>
+
+        {/* Error Message */}
         {error && (
-          <div className="bg-red-500/20 border border-red-500 text-red-400 px-4 py-3 rounded-lg mb-6">
+          <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl mb-6 text-sm text-center">
             {error}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="space-y-4">
+
+          {/* Name */}
           <div>
-            <label className="block text-gray-300 text-sm font-medium mb-2">Name</label>
+            <label className="block text-gray-700 text-sm font-medium mb-2">Full Name</label>
             <input
               type="text"
               name="name"
               value={formData.name}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
+              className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition"
               placeholder="Enter your name"
             />
           </div>
 
+          {/* Email */}
           <div>
-            <label className="block text-gray-300 text-sm font-medium mb-2">Email</label>
+            <label className="block text-gray-700 text-sm font-medium mb-2">Email</label>
             <input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
+              className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition"
               placeholder="Enter your email"
             />
           </div>
 
+          {/* Password */}
           <div>
-            <label className="block text-gray-300 text-sm font-medium mb-2">Password</label>
+            <label className="block text-gray-700 text-sm font-medium mb-2">Password</label>
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
@@ -81,12 +106,12 @@ const Signup = () => {
                 value={formData.password}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
+                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition pr-12"
                 placeholder="Create a password"
               />
               <button
                 type="button"
-                className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-white"
+                className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-gray-600 transition"
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? (
@@ -103,55 +128,80 @@ const Signup = () => {
             </div>
           </div>
 
-          <div>
-            <label className="block text-gray-300 text-sm font-medium mb-2">Domain</label>
-            <select
-              name="domain"
-              value={formData.domain}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
-            >
-              <option value="">Select your domain</option>
-              <option value="web">Web Development</option>
-              <option value="data">Data Science</option>
-              <option value="ux">UX Design</option>
-              <option value="cloud">Cloud Computing</option>
-              <option value="cybersecurity">Cybersecurity</option>
-            </select>
+
+          {/* Domain & Level Row */}
+          <div className="grid grid-cols-2 gap-4">
+            {/* Domain */}
+            <div>
+              <label className="block text-gray-700 text-sm font-medium mb-2">Domain</label>
+              <div className="relative">
+                <select
+                  name="domain"
+                  value={formData.domain}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 bg-white/50 backdrop-blur-md border border-white/40 rounded-xl text-gray-900 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30 transition appearance-none cursor-pointer shadow-lg shadow-blue-500/5 hover:bg-white/60"
+                  style={{ backdropFilter: 'blur(12px)' }}
+                >
+                  <option value="">Select</option>
+                  <option value="web">Web Dev</option>
+                  <option value="data">Data Science</option>
+                  <option value="ux">UX Design</option>
+                  <option value="cloud">Cloud</option>
+                  <option value="cybersecurity">Security</option>
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                  <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            {/* Level */}
+            <div>
+              <label className="block text-gray-700 text-sm font-medium mb-2">Year</label>
+              <div className="relative">
+                <select
+                  name="level"
+                  value={formData.level}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 bg-white/50 backdrop-blur-md border border-white/40 rounded-xl text-gray-900 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30 transition appearance-none cursor-pointer shadow-lg shadow-purple-500/5 hover:bg-white/60"
+                  style={{ backdropFilter: 'blur(12px)' }}
+                >
+                  <option value="">Select</option>
+                  <option value="1st year">1st Year</option>
+                  <option value="2nd year">2nd Year</option>
+                  <option value="3rd year">3rd Year</option>
+                  <option value="4th year">4th Year</option>
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                  <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div>
-            <label className="block text-gray-300 text-sm font-medium mb-2">Level</label>
-            <select
-              name="level"
-              value={formData.level}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
-            >
-              <option value="">Select your year</option>
-              <option value="1st year">1st Year</option>
-              <option value="2nd year">2nd Year</option>
-              <option value="3rd year">3rd Year</option>
-              <option value="4th year">4th Year</option>
-            </select>
-          </div>
 
+          {/* Sign Up Button */}
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full py-3.5 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold rounded-xl transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-blue-500/25 mt-2"
           >
-            {loading ? 'Creating Account...' : 'Sign Up'}
+            {loading ? 'Creating Account...' : 'Sign up'}
           </button>
         </form>
 
-        <p className="text-gray-400 text-center mt-6">
+        {/* Login Link */}
+        <p className="text-gray-500 text-center mt-8 text-sm">
           Already have an account?{' '}
-          <a href="/login" className="text-blue-500 hover:text-blue-400 transition">
-            Log in
-          </a>
+          <Link to="/login" className="text-blue-600 hover:text-blue-700 font-semibold transition">
+            Sign in
+          </Link>
         </p>
       </div>
     </div>

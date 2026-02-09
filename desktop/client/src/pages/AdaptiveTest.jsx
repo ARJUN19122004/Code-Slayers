@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
-import { Link } from "react-router-dom"
+import Navbar from "../components/Navbar"
 
 export default function AdaptiveTest() {
     const [questions, setQuestions] = useState([])
@@ -82,22 +82,13 @@ export default function AdaptiveTest() {
 
     return (
         <div className="min-h-screen bg-gray-50">
-
-            {/* Header */}
-            <header className="bg-white border-b border-gray-200 py-4 px-6">
-                <div className="max-w-3xl mx-auto">
-                    <Link to="/" className="inline-flex items-center text-gray-500 hover:text-gray-900 text-sm">
-                        ← Back to Dashboard
-                    </Link>
-                </div>
-            </header>
+            <Navbar />
 
             <main className="max-w-3xl mx-auto px-6 py-8">
 
                 {/* Intro Stage */}
                 {stage === "intro" && (
                     <div className="text-center">
-                        <div className="text-6xl mb-6">🧠</div>
                         <h1 className="text-4xl font-bold text-gray-900 mb-4">
                             Adaptive Learning Engine
                         </h1>
@@ -110,7 +101,7 @@ export default function AdaptiveTest() {
                             disabled={loading}
                             className="px-8 py-4 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl"
                         >
-                            {loading ? "Loading..." : "🚀 Start Assessment"}
+                            {loading ? "Loading..." : "Start Assessment"}
                         </button>
                         <p className="text-gray-400 text-sm mt-4">10 questions • 5 topics • ~3 minutes</p>
                     </div>
@@ -169,7 +160,6 @@ export default function AdaptiveTest() {
                     <div className="space-y-6">
                         {/* Header */}
                         <div className="text-center mb-8">
-                            <div className="text-5xl mb-4">📊</div>
                             <h1 className="text-3xl font-bold text-gray-900 mb-2">
                                 Adaptive Learning Plan
                             </h1>
@@ -181,7 +171,7 @@ export default function AdaptiveTest() {
                         {/* Topic Scores */}
                         {topicScores && (
                             <div className="bg-white rounded-2xl border border-gray-200 p-6">
-                                <h3 className="text-lg font-bold text-gray-900 mb-4">📈 Your Topic Scores</h3>
+                                <h3 className="text-lg font-bold text-gray-900 mb-4">Your Topic Scores</h3>
                                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                                     {Object.entries(topicScores)
                                         .sort((a, b) => a[1] - b[1])
@@ -202,7 +192,7 @@ export default function AdaptiveTest() {
                         {/* Roadmap Timeline */}
                         {roadmap.length > 0 && (
                             <div className="bg-white rounded-2xl border border-gray-200 p-6">
-                                <h3 className="text-lg font-bold text-gray-900 mb-4">🗺️ Your Personalized Plan</h3>
+                                <h3 className="text-lg font-bold text-gray-900 mb-4">Your Personalized Plan</h3>
                                 <div className="relative">
                                     {/* Timeline line */}
                                     <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-blue-200" />
@@ -228,7 +218,6 @@ export default function AdaptiveTest() {
 
                         {roadmap.length === 0 && (
                             <div className="bg-green-50 border border-green-200 rounded-xl p-6 text-center">
-                                <div className="text-4xl mb-2">🎉</div>
                                 <h3 className="text-lg font-bold text-green-900">All Topics Mastered!</h3>
                                 <p className="text-green-700">You've scored well in all areas.</p>
                             </div>
@@ -236,7 +225,7 @@ export default function AdaptiveTest() {
 
                         {/* Pro Tips */}
                         <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6">
-                            <h3 className="font-bold text-blue-900 mb-2">💡 Pro Tips</h3>
+                            <h3 className="font-bold text-blue-900 mb-2">Pro Tips</h3>
                             <ul className="text-blue-800 text-sm space-y-1">
                                 <li>• Focus on one topic per week for best retention</li>
                                 <li>• Practice with coding problems on LeetCode or HackerRank</li>
@@ -249,7 +238,7 @@ export default function AdaptiveTest() {
                             onClick={resetTest}
                             className="w-full py-3 rounded-xl border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors"
                         >
-                            ← Take Assessment Again
+                            Take Assessment Again
                         </button>
                     </div>
                 )}

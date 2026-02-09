@@ -1,17 +1,17 @@
 import { useState } from "react"
 import axios from "axios"
-import { Link } from "react-router-dom"
+import Navbar from "../components/Navbar"
 
 const options = [
-    { label: "I enjoy coding", value: "coding", icon: "💻" },
-    { label: "I love design & creativity", value: "design", icon: "🎨" },
-    { label: "I'm good at math", value: "math", icon: "🔢" },
-    { label: "I enjoy statistics", value: "statistics", icon: "📈" },
-    { label: "I like solving problems", value: "problem_solving", icon: "🧩" },
-    { label: "I enjoy writing/storytelling", value: "writing", icon: "✍️" },
-    { label: "Interested in networking/security", value: "networks", icon: "🔐" },
-    { label: "I like servers & cloud", value: "servers", icon: "☁️" },
-    { label: "Love automation & DevOps", value: "automation", icon: "⚙️" }
+    { label: "I enjoy coding", value: "coding" },
+    { label: "I love design & creativity", value: "design" },
+    { label: "I'm good at math", value: "math" },
+    { label: "I enjoy statistics", value: "statistics" },
+    { label: "I like solving problems", value: "problem_solving" },
+    { label: "I enjoy writing/storytelling", value: "writing" },
+    { label: "Interested in networking/security", value: "networks" },
+    { label: "I like servers & cloud", value: "servers" },
+    { label: "Love automation & DevOps", value: "automation" }
 ]
 
 export default function Quiz() {
@@ -57,22 +57,14 @@ export default function Quiz() {
 
     return (
         <div className="min-h-screen bg-gray-50">
-
-            {/* Header */}
-            <header className="bg-white border-b border-gray-200 py-4 px-6">
-                <div className="max-w-3xl mx-auto">
-                    <Link to="/" className="inline-flex items-center text-gray-500 hover:text-gray-900 text-sm">
-                        ← Back to Dashboard
-                    </Link>
-                </div>
-            </header>
+            <Navbar />
 
             <main className="max-w-3xl mx-auto px-6 py-8">
 
                 {/* Title */}
                 <div className="text-center mb-8">
                     <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                        🎯 Career Interest Quiz
+                        Career Interest Quiz
                     </h1>
                     <p className="text-gray-600">
                         Select the interests that resonate with you to discover your ideal tech career path
@@ -88,11 +80,10 @@ export default function Quiz() {
                                     key={opt.value}
                                     onClick={() => toggle(opt.value)}
                                     className={`p-4 rounded-xl border-2 transition-all ${selected.includes(opt.value)
-                                            ? "bg-purple-50 border-purple-400"
-                                            : "bg-white border-gray-200 hover:border-gray-300"
+                                        ? "bg-purple-50 border-purple-400"
+                                        : "bg-white border-gray-200 hover:border-gray-300"
                                         }`}
                                 >
-                                    <div className="text-2xl mb-2">{opt.icon}</div>
                                     <div className="text-gray-900 font-medium text-sm">
                                         {opt.label}
                                     </div>
@@ -120,11 +111,11 @@ export default function Quiz() {
                                 onClick={handleSubmit}
                                 disabled={loading || selected.length < 2}
                                 className={`px-8 py-3 rounded-lg font-medium transition-all ${loading || selected.length < 2
-                                        ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-                                        : "bg-blue-600 text-white hover:bg-blue-700"
+                                    ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                                    : "bg-blue-600 text-white hover:bg-blue-700"
                                     }`}
                             >
-                                {loading ? "Analyzing..." : "Get My Career Match 🚀"}
+                                {loading ? "Analyzing..." : "Get My Career Match"}
                             </button>
                         </div>
                     </>
@@ -133,7 +124,7 @@ export default function Quiz() {
                         {/* Results Section */}
                         <div className="bg-white rounded-xl border border-gray-200 p-6">
                             <h2 className="text-xl font-bold text-gray-900 mb-6 text-center">
-                                📊 Your Career Matches
+                                Your Career Matches
                             </h2>
 
                             <div className="space-y-4">
@@ -141,12 +132,11 @@ export default function Quiz() {
                                     <div
                                         key={career.domain}
                                         className={`p-5 rounded-xl border-2 ${idx === 0
-                                                ? "bg-yellow-50 border-yellow-300"
-                                                : "bg-gray-50 border-gray-200"
+                                            ? "bg-yellow-50 border-yellow-300"
+                                            : "bg-gray-50 border-gray-200"
                                             }`}
                                     >
                                         <div className="flex items-start gap-4">
-                                            <div className="text-3xl">{career.icon}</div>
                                             <div className="flex-1">
                                                 <div className="flex items-center gap-3 mb-2">
                                                     <h3 className="text-lg font-semibold text-gray-900">
@@ -179,7 +169,7 @@ export default function Quiz() {
                                                             key={resource}
                                                             className="bg-gray-100 text-gray-700 text-xs px-3 py-1 rounded-full"
                                                         >
-                                                            📚 {resource}
+                                                            {resource}
                                                         </span>
                                                     ))}
                                                 </div>
@@ -199,7 +189,7 @@ export default function Quiz() {
                                     onClick={resetQuiz}
                                     className="px-6 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 transition-all"
                                 >
-                                    ← Take Quiz Again
+                                    Take Quiz Again
                                 </button>
                             </div>
                         </div>

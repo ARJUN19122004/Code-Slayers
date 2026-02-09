@@ -9,6 +9,7 @@ import Companies from "./pages/Companies"
 import Readiness from "./pages/Readiness"
 import Skills from "./pages/Skills"
 import AdaptiveTest from "./pages/AdaptiveTest"
+import Pricing from "./pages/Pricing"
 import ProtectedRoute from "./components/ProtectedRoute"
 
 export default function App() {
@@ -25,6 +26,7 @@ export default function App() {
         <Route path="/readiness" element={<ProtectedRoute><Readiness /></ProtectedRoute>} />
         <Route path="/skills" element={<ProtectedRoute><Skills /></ProtectedRoute>} />
         <Route path="/adaptive" element={<ProtectedRoute><AdaptiveTest /></ProtectedRoute>} />
+        <Route path="/pricing" element={<Pricing />} />
       </Routes>
     </BrowserRouter>
   )

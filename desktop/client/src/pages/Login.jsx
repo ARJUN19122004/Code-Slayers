@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { login } from '../services/authService';
 
 const Login = () => {
@@ -11,6 +11,7 @@ const Login = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -32,32 +33,56 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900 px-4">
-      <div className="w-full max-w-md bg-gray-800 rounded-2xl shadow-xl p-8">
-        <h2 className="text-3xl font-bold text-white text-center mb-8">Welcome Back</h2>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-purple-50 to-pink-100 px-4 py-8">
 
+      {/* Logo */}
+      <div className="absolute top-8 left-1/2 -translate-x-1/2">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+          </div>
+          <span className="text-xl font-bold text-gray-700">Student 360</span>
+        </div>
+      </div>
+
+      {/* Card */}
+      <div className="w-full max-w-md bg-white rounded-3xl shadow-xl p-8 mt-16">
+
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">Welcome Back!</h1>
+          <p className="text-gray-500 text-sm">We missed you! Please enter your details.</p>
+        </div>
+
+        {/* Error Message */}
         {error && (
-          <div className="bg-red-500/20 border border-red-500 text-red-400 px-4 py-3 rounded-lg mb-6">
+          <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl mb-6 text-sm text-center">
             {error}
           </div>
         )}
 
+        {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-5">
+
+          {/* Email */}
           <div>
-            <label className="block text-gray-300 text-sm font-medium mb-2">Email</label>
+            <label className="block text-gray-700 text-sm font-medium mb-2">Email</label>
             <input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
-              placeholder="Enter your email"
+              className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition"
+              placeholder="Enter your Email"
             />
           </div>
 
+          {/* Password */}
           <div>
-            <label className="block text-gray-300 text-sm font-medium mb-2">Password</label>
+            <label className="block text-gray-700 text-sm font-medium mb-2">Password</label>
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
@@ -65,12 +90,12 @@ const Login = () => {
                 value={formData.password}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
-                placeholder="Enter your password"
+                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition pr-12"
+                placeholder="Enter Password"
               />
               <button
                 type="button"
-                className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-white"
+                className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-gray-600 transition"
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? (
@@ -87,20 +112,38 @@ const Login = () => {
             </div>
           </div>
 
+          {/* Remember Me & Forgot Password */}
+          <div className="flex items-center justify-between">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+                className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              />
+              <span className="text-sm text-gray-600">Remember me</span>
+            </label>
+            <a href="#" className="text-sm text-blue-600 hover:text-blue-700 font-medium transition">
+              Forgot password?
+            </a>
+          </div>
+
+          {/* Sign In Button */}
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full py-3.5 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold rounded-xl transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-blue-500/25"
           >
-            {loading ? 'Logging in...' : 'Log In'}
+            {loading ? 'Signing in...' : 'Sign in'}
           </button>
         </form>
 
-        <p className="text-gray-400 text-center mt-6">
+        {/* Sign Up Link */}
+        <p className="text-gray-500 text-center mt-8 text-sm">
           Don't have an account?{' '}
-          <a href="/signup" className="text-blue-500 hover:text-blue-400 transition">
+          <Link to="/signup" className="text-blue-600 hover:text-blue-700 font-semibold transition">
             Sign up
-          </a>
+          </Link>
         </p>
       </div>
     </div>

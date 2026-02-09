@@ -1,1 +1,11 @@
 @import "tailwindcss";
+
+* {
+  font-family: 'Outfit', sans-serif;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

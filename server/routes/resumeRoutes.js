@@ -1,6 +1,6 @@
 const express = require("express")
 const multer = require("multer")
-const pdfParse = require("pdf-parse")
+const { PDFParse } = require("pdf-parse")
 
 const router = express.Router()
 
@@ -24,11 +24,18 @@ router.post("/analyze", upload.single("resume"), async (req, res) => {
     try {
         // Check if file was uploaded
         if (!req.file) {
+            console.log("No file uploaded");
             return res.status(400).json({ message: "No file uploaded" })
         }
 
-        const data = await pdfParse(req.file.buffer)
+        console.log("File received:", req.file.originalname, "Size:", req.file.size);
+
+        // Parse PDF using PDFParse class (pdf-parse v2.x)
+        const parser = new PDFParse()
+        const data = await parser.loadPDF(req.file.buffer)
         const text = data.text.toLowerCase()
+
+        console.log("PDF parsed successfully. Text length:", text.length);
 
         let score = 0
         const found = []
@@ -65,8 +72,8 @@ router.post("/analyze", upload.single("resume"), async (req, res) => {
         })
 
     } catch (err) {
-        console.error("Resume parse error:", err)
-        res.status(500).json({ message: "Error parsing resume" })
+        console.error("Resume parse error details:", err)
+        res.status(500).json({ message: "Error parsing resume", error: err.message })
     }
 })
 

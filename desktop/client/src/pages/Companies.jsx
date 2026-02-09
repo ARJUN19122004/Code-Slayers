@@ -1,13 +1,13 @@
 import { useState } from "react"
 import axios from "axios"
-import { Link } from "react-router-dom"
+import Navbar from "../components/Navbar"
 
 const domains = [
-    { value: "web", label: "Web Development", icon: "🌐", color: "bg-blue-50 border-blue-200 hover:border-blue-400" },
-    { value: "data", label: "Data Science", icon: "📊", color: "bg-purple-50 border-purple-200 hover:border-purple-400" },
-    { value: "ux", label: "UX Design", icon: "🎨", color: "bg-pink-50 border-pink-200 hover:border-pink-400" },
-    { value: "cloud", label: "Cloud/DevOps", icon: "☁️", color: "bg-green-50 border-green-200 hover:border-green-400" },
-    { value: "cybersecurity", label: "Cyber Security", icon: "🔒", color: "bg-red-50 border-red-200 hover:border-red-400" }
+    { value: "web", label: "Web Development", color: "bg-blue-50 border-blue-200 hover:border-blue-400" },
+    { value: "data", label: "Data Science", color: "bg-purple-50 border-purple-200 hover:border-purple-400" },
+    { value: "ux", label: "UX Design", color: "bg-pink-50 border-pink-200 hover:border-pink-400" },
+    { value: "cloud", label: "Cloud/DevOps", color: "bg-green-50 border-green-200 hover:border-green-400" },
+    { value: "cybersecurity", label: "Cyber Security", color: "bg-red-50 border-red-200 hover:border-red-400" }
 ]
 
 export default function Companies() {
@@ -40,22 +40,14 @@ export default function Companies() {
 
     return (
         <div className="min-h-screen bg-gray-50">
-
-            {/* Header */}
-            <header className="bg-white border-b border-gray-200 py-4 px-6">
-                <div className="max-w-4xl mx-auto">
-                    <Link to="/" className="inline-flex items-center text-gray-500 hover:text-gray-900 text-sm">
-                        ← Back to Dashboard
-                    </Link>
-                </div>
-            </header>
+            <Navbar />
 
             <main className="max-w-4xl mx-auto px-6 py-8">
 
                 {/* Title */}
                 <div className="text-center mb-8">
                     <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                        🏢 Company Explorer
+                        Company Explorer
                     </h1>
                     <p className="text-gray-600">
                         Discover target companies and required skills
@@ -70,9 +62,8 @@ export default function Companies() {
                                 onClick={() => fetchCompanies(d.value)}
                                 className={`p-6 rounded-xl border-2 text-left transition-all ${d.color}`}
                             >
-                                <div className="text-3xl mb-2">{d.icon}</div>
                                 <div className="text-lg font-semibold text-gray-900">{d.label}</div>
-                                <div className="text-gray-500 text-sm mt-1">View companies →</div>
+                                <div className="text-gray-500 text-sm mt-1">View companies</div>
                             </button>
                         ))}
                     </div>
@@ -81,7 +72,6 @@ export default function Companies() {
                         {/* Selected Domain */}
                         <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">
                             <div className="flex items-center gap-3">
-                                <div className="text-3xl">{selectedDomainData?.icon}</div>
                                 <div>
                                     <h2 className="text-xl font-bold text-gray-900">
                                         {selectedDomainData?.label}
@@ -113,7 +103,6 @@ export default function Companies() {
                                                     {company.type}
                                                 </span>
                                             </div>
-                                            <div className="text-2xl">🏢</div>
                                         </div>
 
                                         <div className="mt-4">
@@ -139,7 +128,7 @@ export default function Companies() {
                             onClick={resetSelection}
                             className="w-full mt-6 py-3 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors"
                         >
-                            ← Choose Different Domain
+                            Choose Different Domain
                         </button>
                     </>
                 )}
